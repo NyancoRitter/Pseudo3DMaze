@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Code">
+      <UniqueIdentifier>{fbbff397-404c-4cf5-82fe-51dc7e5c176f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\MazeRendering">
+      <UniqueIdentifier>{894831a8-0ba8-42d3-a6be-c4c793c6a484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Parts">
+      <UniqueIdentifier>{c82c079e-cd5f-4e7f-8f03-81b5e1efbe70}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\MazeRendering\Direction.h">
+      <Filter>Code\MazeRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\MazeRendering\MazeData.h">
+      <Filter>Code\MazeRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\MazeRendering\MazeRendering.h">
+      <Filter>Code\MazeRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\MazeRendering\RayCast.h">
+      <Filter>Code\MazeRendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Parts\Vec.h">
+      <Filter>Code\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Test01.h">
+      <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Parts\PinholeCamera.h">
+      <Filter>Code\Parts</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Test01.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pseudo3DMaze.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
