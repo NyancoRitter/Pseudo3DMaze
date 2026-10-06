@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "MazeData.h"
-#include "Parts/PinholeCamera.h"
+#include "../Parts/PinholeCamera.h"
 #include <concepts>
 #include "RayCast.h"
 
@@ -43,7 +43,7 @@ namespace PSEUDO_3D_MAZE
 	/// <param name="Maze">Maze Edge info provider</param>
 	/// <param name="Camera">Pinhole-Camera-Model</param>
 	/// <param name="CameraPos">
-	/// Camera Position (X,Y, height).
+	/// Camera Position (X,Y, and height).
 	/// * height should be in range [0.0, 1.0]. (Otherwise, may cause no good rendering result.)
 	///		Floor=0.0 ~ 1.0=Ceil
 	/// </param>
@@ -61,7 +61,7 @@ namespace PSEUDO_3D_MAZE
 	void RenderMazeEdge(
 		const MazeData_t &Maze,
 		const PinholeCamera &Camera,
-		Vec3d CameraPos,
+		const Vec3d &CameraPos,
 		double CameraYaw_rad,
 		double Near,
 		double Far,

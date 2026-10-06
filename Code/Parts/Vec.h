@@ -9,11 +9,21 @@ template< class VAL_T, size_t DIM >
 struct Vec : public std::array<VAL_T, DIM>
 {
 	//ctor
+	Vec() = default;
+
+	//ctor
 	template< class ...Args >
 	requires ( sizeof...(Args) == DIM )
 	constexpr Vec( Args... args )
-		: std::array<VAL_T, DIM>{ args... }
+		: std::array<VAL_T, DIM>{ static_cast<VAL_T>(args)... }
 	{}
+
+	//ctor
+	constexpr Vec( Vec<VAL_T, DIM-1> s, VAL_T LastComponent ) requires (DIM>0)
+	{
+		for( size_t i=0; i<DIM-1; ++i ){	(*this)[i] = s[i];	}
+		(*this)[DIM-1] = LastComponent;
+	}
 
 	//unary OP
 	constexpr Vec &operator *=( VAL_T s ){	for( size_t i=0; i<DIM; ++i ){	(*this)[i] *= s;	}	return *this;	}
@@ -36,6 +46,7 @@ struct Vec : public std::array<VAL_T, DIM>
 
 //alias
 template< class VAL_T > using Vec2 = Vec<VAL_T,2>;
+using Vec2i = Vec2<int>;
 using Vec2d = Vec2<double>;
 
 template< class VAL_T > using Vec3 = Vec<VAL_T,3>;

@@ -17,7 +17,7 @@
 #pragma comment(lib, "dwmapi.lib")
 
 //
-#include "Code/Test01.h"
+#include "Code/Test.h"
 
 namespace
 {
@@ -151,6 +151,14 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 				CameraPos -= MoveAmount * Vec2d{ std::cos(CameraDir), std::sin(CameraDir) };
 				ShouldRedraw = true;
 				break;
+			case VK_NUMPAD9:	//Move right
+				CameraPos += MoveAmount * Vec2d{ -std::sin(CameraDir), std::cos(CameraDir) };
+				ShouldRedraw = true;
+				break;
+			case VK_NUMPAD7:	//Move left
+				CameraPos -= MoveAmount * Vec2d{ -std::sin(CameraDir), std::cos(CameraDir) };
+				ShouldRedraw = true;
+				break;
 			case VK_NUMPAD4:	//Yawing left
 				CameraDir -= YawingAmount;
 				if( CameraDir < 0.9 )CameraDir += PI2;
@@ -181,7 +189,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 				if( HDC hMemDC = CreateCompatibleDC( hdc );	hMemDC!=NULL )
 				{
 					HBITMAP OldBmp = SelectBitmap( hMemDC, hCanvasBmp );
-					Test01_Render( CameraPos, CameraDir, hMemDC );
+					Test02_Render( CameraPos, CameraDir, hMemDC );
 					BitBlt( hdc, 0,0, IMG_W, IMG_H, hMemDC, 0,0, SRCCOPY );
 					SelectBitmap( hMemDC, OldBmp );
 					DeleteDC( hMemDC );

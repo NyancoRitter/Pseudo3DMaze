@@ -1,7 +1,7 @@
 ﻿#include "framework.h"
 #include <windowsx.h>
 
-#include "Test01.h"
+#include "Test.h"
 #include "MazeRendering/MazeRendering.h"
 
 using namespace PSEUDO_3D_MAZE;
@@ -75,3 +75,4 @@ void Test01_Render( Vec2d CameraPos, double CameraYaw_rad, HDC hDC )
 		[hDC]( const DrawEdgeParam &P ){	DrawVLine(hDC,P);	}
 	);
 }
+

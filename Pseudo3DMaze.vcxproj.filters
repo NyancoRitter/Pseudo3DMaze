@@ -22,6 +22,9 @@
     <Filter Include="Code\Parts">
       <UniqueIdentifier>{c82c079e-cd5f-4e7f-8f03-81b5e1efbe70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\WireframeObj">
+      <UniqueIdentifier>{40a60f81-1534-448d-84ae-329550fd27c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -48,8 +51,14 @@
     <ClInclude Include="Code\Parts\Vec.h">
       <Filter>Code\Parts</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Test01.h">
+    <ClInclude Include="Code\Test.h">
       <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\WireframeObj\WireframeObj.h">
+      <Filter>Code\WireframeObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\WireframeObj\WFORenderer.h">
+      <Filter>Code\WireframeObj</Filter>
     </ClInclude>
     <ClInclude Include="Code\Parts\PinholeCamera.h">
       <Filter>Code\Parts</Filter>
@@ -61,6 +70,15 @@
     </ClCompile>
     <ClCompile Include="Code\Test01.cpp">
       <Filter>Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\WireframeObj\WireframeObj.cpp">
+      <Filter>Code\WireframeObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\WireframeObj\WFORenderer.cpp">
+      <Filter>Code\WireframeObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Test02.cpp">
+      <Filter>Code\WireframeObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
