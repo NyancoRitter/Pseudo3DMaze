@@ -51,7 +51,7 @@
     <ClInclude Include="Code\Parts\Vec.h">
       <Filter>Code\Parts</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Test.h">
+    <ClInclude Include="Code\Test03.h">
       <Filter>Code</Filter>
     </ClInclude>
     <ClInclude Include="Code\WireframeObj\WireframeObj.h">
@@ -68,17 +68,14 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Test01.cpp">
-      <Filter>Code</Filter>
-    </ClCompile>
     <ClCompile Include="Code\WireframeObj\WireframeObj.cpp">
       <Filter>Code\WireframeObj</Filter>
     </ClCompile>
     <ClCompile Include="Code\WireframeObj\WFORenderer.cpp">
       <Filter>Code\WireframeObj</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Test02.cpp">
-      <Filter>Code\WireframeObj</Filter>
+    <ClCompile Include="Code\Test03.cpp">
+      <Filter>Code</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

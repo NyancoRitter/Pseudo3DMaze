@@ -13,13 +13,13 @@ struct Vec : public std::array<VAL_T, DIM>
 
 	//ctor
 	template< class ...Args >
-	requires ( sizeof...(Args) == DIM )
+		requires ( sizeof...(Args) == DIM )
 	constexpr Vec( Args... args )
 		: std::array<VAL_T, DIM>{ static_cast<VAL_T>(args)... }
 	{}
 
 	//ctor
-	constexpr Vec( Vec<VAL_T, DIM-1> s, VAL_T LastComponent ) requires (DIM>0)
+	constexpr Vec( Vec<VAL_T, DIM-1> s, VAL_T LastComponent ) requires (DIM>=2)
 	{
 		for( size_t i=0; i<DIM-1; ++i ){	(*this)[i] = s[i];	}
 		(*this)[DIM-1] = LastComponent;
@@ -38,7 +38,7 @@ struct Vec : public std::array<VAL_T, DIM>
 		return Ret;
 	}
 
-	//Square of L2-Nrom
+	//Square of L2-Norm
 	constexpr  VAL_T SqL2Norm() const;
 	//L2-Norm
 	constexpr  VAL_T L2Norm() const {	return std::sqrt( SqL2Norm() );	}
@@ -54,19 +54,19 @@ using Vec3d = Vec<double,3>;
 
 //binary OP
 template< class VAL_T, size_t DIM >
-constexpr  Vec<VAL_T,DIM> operator*( const Vec<VAL_T,DIM> &lhs, VAL_T s ){	return Vec<VAL_T,DIM>{lhs} *= s;	}
+constexpr  Vec<VAL_T,DIM> operator*( Vec<VAL_T,DIM> lhs, VAL_T s ){	return lhs *= s;	}
 
 template< class VAL_T, size_t DIM >
-constexpr  Vec<VAL_T,DIM> operator*( VAL_T s, const Vec<VAL_T,DIM> &rhs ){	return Vec<VAL_T,DIM>{rhs} *= s;	}
+constexpr  Vec<VAL_T,DIM> operator*( VAL_T s, Vec<VAL_T,DIM> rhs ){	return rhs *= s;	}
 
 template< class VAL_T, size_t DIM >
-constexpr  Vec<VAL_T,DIM> operator/( const Vec<VAL_T,DIM> &lhs, VAL_T s ){	return Vec<VAL_T,DIM>{lhs} /= s;	}
+constexpr  Vec<VAL_T,DIM> operator/( Vec<VAL_T,DIM> lhs, VAL_T s ){	return lhs /= s;	}
 
 template< class VAL_T, size_t DIM >
-constexpr  Vec<VAL_T,DIM> operator+( const Vec<VAL_T,DIM> &lhs, const Vec<VAL_T,DIM> &rhs ){	return Vec<VAL_T,DIM>{lhs} += rhs;	}
+constexpr  Vec<VAL_T,DIM> operator+( Vec<VAL_T,DIM> lhs, const Vec<VAL_T,DIM> &rhs ){	return lhs += rhs;	}
 
 template< class VAL_T, size_t DIM >
-constexpr  Vec<VAL_T,DIM> operator-( const Vec<VAL_T,DIM> &lhs, const Vec<VAL_T,DIM> &rhs ){	return Vec<VAL_T,DIM>{lhs} -= rhs;	}
+constexpr  Vec<VAL_T,DIM> operator-( Vec<VAL_T,DIM> lhs, const Vec<VAL_T,DIM> &rhs ){	return lhs -= rhs;	}
 
 //dot product
 template< class VAL_T, size_t DIM >

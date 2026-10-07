@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include "Vec.h"
 
-
 /// <summary>
 /// Simple Pinhole-Camera Model
 ///		<remarks>

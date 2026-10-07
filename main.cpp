@@ -10,14 +10,13 @@
 #include "framework.h"
 //#include "resource.h"
 #include <windowsx.h>
-#include <numbers>
 
 //for DwmSetWindowAttribute()
 #include <dwmapi.h>
 #pragma comment(lib, "dwmapi.lib")
 
 //
-#include "Code/Test.h"
+#include "Code/Test03.h"
 
 namespace
 {
@@ -40,6 +39,11 @@ namespace
 		}
 		return false;
 	}
+
+	//
+	Test03::GameLike TheGameLike;
+	Test03::Controller TheController;
+	bool ShouldRender = true;
 }
 
 HINSTANCE hInst;
@@ -62,14 +66,31 @@ int APIENTRY wWinMain(
 	MyRegisterClass( hInstance );
 	HWND hWnd = InitInstance( hInstance, nCmdShow );
 	if( hWnd==NULL )return FALSE;
-	SetWindowClientAreaSize( IMG_W, IMG_H, hWnd );
+	SetWindowClientAreaSize( Test03::IMG_W, Test03::IMG_H, hWnd );
 
-	//
+	//main loop
 	MSG msg;
-	while( GetMessage( &msg, nullptr, 0, 0 ) )
+	while( true )
 	{
-		TranslateMessage( &msg );
-		DispatchMessage( &msg );
+		while( ::PeekMessageW( &msg, NULL, 0,0, PM_REMOVE ) != 0 )
+		{
+			if( msg.message == WM_QUIT )
+			{	return (int)msg.wParam;	}
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		//---
+		//If something updated, render
+		if( ShouldRender = TheGameLike.Update( TheController ) )
+		{	InvalidateRect( hWnd, NULL, FALSE );	}
+		//This call is needed
+		TheController.ToNextTimeStep();
+		//---
+
+		//wait
+		Sleep(16);
 	}
 
 	return (int)msg.wParam;
@@ -117,9 +138,6 @@ HWND InitInstance( HINSTANCE hInstance, int nCmdShow )
 
 LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
-	//Data for Test
-	static Vec2d CameraPos{ 0.5, 0.5 };	//(0.5, 0.5) = center of most north-west square
-	static double CameraDir = 0;	//[rad]
 	static HBITMAP hCanvasBmp = NULL;
 
 	switch( message )
@@ -135,62 +153,51 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 			DwmSetWindowAttribute( hWnd, DWMWA_WINDOW_CORNER_PREFERENCE, &Attr, sizeof(Attr) );
 		}
 		break;
-	case WM_KEYDOWN:
+
+	case WM_KEYDOWN:	//fall through
+	case WM_KEYUP:
 		{
-			constexpr double MoveAmount = 0.1;
-			constexpr double YawingAmount = 0.05;
-			constexpr double PI2 = 2 * std::numbers::pi;
-			bool ShouldRedraw = false;
+			using enum Test03::Key;
+			const bool Pressed = ( message==WM_KEYDOWN );
 			switch( wParam )
 			{
-			case VK_NUMPAD8:	//Go forward
-				CameraPos += MoveAmount * Vec2d{ std::cos(CameraDir), std::sin(CameraDir) };
-				ShouldRedraw = true;
-				break;
-			case VK_NUMPAD2:	//Go backward
-				CameraPos -= MoveAmount * Vec2d{ std::cos(CameraDir), std::sin(CameraDir) };
-				ShouldRedraw = true;
-				break;
-			case VK_NUMPAD9:	//Move right
-				CameraPos += MoveAmount * Vec2d{ -std::sin(CameraDir), std::cos(CameraDir) };
-				ShouldRedraw = true;
-				break;
-			case VK_NUMPAD7:	//Move left
-				CameraPos -= MoveAmount * Vec2d{ -std::sin(CameraDir), std::cos(CameraDir) };
-				ShouldRedraw = true;
-				break;
-			case VK_NUMPAD4:	//Yawing left
-				CameraDir -= YawingAmount;
-				if( CameraDir < 0.9 )CameraDir += PI2;
-				ShouldRedraw = true;
-				break;
-			case VK_NUMPAD6:	//Yawing right
-				CameraDir += YawingAmount;
-				if( CameraDir > PI2)CameraDir -= PI2;
-				ShouldRedraw = true;
-				break;
+			case VK_NUMPAD8:
+				TheController.OnKeyStateChanged( GoForward, Pressed );	break;
+			case VK_NUMPAD2:
+				TheController.OnKeyStateChanged( GoBackward, Pressed );	break;
+			case VK_NUMPAD7:
+				TheController.OnKeyStateChanged( GoLeft, Pressed );	break;
+			case VK_NUMPAD9:
+				TheController.OnKeyStateChanged( GoRight, Pressed );	break;
+			case VK_NUMPAD4:
+				TheController.OnKeyStateChanged( TurnLeft, Pressed );	break;
+			case VK_NUMPAD6:
+				TheController.OnKeyStateChanged( TurnRight, Pressed );	break;
 			default:
 				break;
 			}
-			if( ShouldRedraw )
-			{	InvalidateRect( hWnd, NULL, FALSE );	}
 		}
 		break;
+
 	case WM_PAINT:
 		{
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint( hWnd, &ps );
 
 			if( hCanvasBmp == NULL )	//when 1st time
-			{	hCanvasBmp = CreateCompatibleBitmap( hdc, IMG_W, IMG_H );	}
+			{	hCanvasBmp = CreateCompatibleBitmap( hdc, Test03::IMG_W, Test03::IMG_H );	}
 
 			if( hCanvasBmp != NULL )
 			{
 				if( HDC hMemDC = CreateCompatibleDC( hdc );	hMemDC!=NULL )
 				{
 					HBITMAP OldBmp = SelectBitmap( hMemDC, hCanvasBmp );
-					Test02_Render( CameraPos, CameraDir, hMemDC );
-					BitBlt( hdc, 0,0, IMG_W, IMG_H, hMemDC, 0,0, SRCCOPY );
+					if( ShouldRender )
+					{
+						TheGameLike.Render( hMemDC );
+						ShouldRender = false;
+					}
+					BitBlt( hdc, 0,0, Test03::IMG_W, Test03::IMG_H, hMemDC, 0,0, SRCCOPY );
 					SelectBitmap( hMemDC, OldBmp );
 					DeleteDC( hMemDC );
 				}

@@ -139,7 +139,7 @@
     <ClInclude Include="Code\MazeRendering\RayCast.h" />
     <ClInclude Include="Code\Parts\PinholeCamera.h" />
     <ClInclude Include="Code\Parts\Vec.h" />
-    <ClInclude Include="Code\Test.h" />
+    <ClInclude Include="Code\Test03.h" />
     <ClInclude Include="Code\WireframeObj\WFORenderer.h" />
     <ClInclude Include="Code\WireframeObj\WireframeObj.h" />
     <ClInclude Include="framework.h" />
@@ -147,8 +147,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Code\Test01.cpp" />
-    <ClCompile Include="Code\Test02.cpp" />
+    <ClCompile Include="Code\Test03.cpp" />
     <ClCompile Include="Code\WireframeObj\WFORenderer.cpp" />
     <ClCompile Include="Code\WireframeObj\WireframeObj.cpp" />
     <ClCompile Include="main.cpp" />
